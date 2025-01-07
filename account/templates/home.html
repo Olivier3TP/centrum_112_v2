@@ -1,0 +1,17 @@
+{% block title %}Strona Główna{% endblock %}
+
+{% block content %}
+    <h1>Witaj na stronie głównej!</h1>
+
+    <div>
+        <a href="{% url 'user_login' %}">
+            <button type="button">Zaloguj się</button>
+        </a>
+    </div>
+
+    <div>
+        <a href="{% url 'send_report' %}">
+            <button type="button">Wyślij zgłoszenie</button>
+        </a>
+    </div>
+{% endblock %}

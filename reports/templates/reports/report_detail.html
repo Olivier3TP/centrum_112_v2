@@ -1,0 +1,17 @@
+
+
+{% block title %}Szczegóły zgłoszenia{% endblock %}
+
+{% block content %}
+    <h1>Szczegóły zgłoszenia</h1>
+
+    <div>
+        <p>ID zgłoszenia: {{ report.id }}</p>
+        <p>Osoba: {{ report.first_name }} {{ report.last_name }}</p>
+        <p>Opis: {{ report.description }}</p>
+        <p>Adres {{ report.address }}</p>
+    </div>
+
+
+    <a href="{% url 'dispatcher_dashboard' %}">Powrót do dashboardu</a>
+{% endblock %}

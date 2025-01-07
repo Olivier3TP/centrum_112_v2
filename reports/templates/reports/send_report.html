@@ -1,0 +1,14 @@
+{% block title %}Wyślij zgłoszenie{% endblock %}
+
+{% block content %}
+    <a href="{% url 'home' %}">Wróc na strone główną</a>
+    <h1>Zgłoszenie</h1>
+    <p>Wypełnij poniższy formularz:</p>
+
+    <form action="#" method="post">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <p><input type="submit" value="Wyślij"></p>
+    </form>
+
+{% endblock %}

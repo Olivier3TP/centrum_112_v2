@@ -1,0 +1,21 @@
+
+
+{% block title %}Dashboard Dyspozytora{% endblock %}
+
+{% block content %}
+    <h1>Dashboard Dyspozytora</h1>
+
+    <h2>Lista zgłoszeń</h2>
+
+    <div>
+        {% for report in reports %}
+            <div>
+                <p>Użytkownik:{{ report.first_name }} {{ report.last_name }}</p>
+                <p>Opis: {{ report.description|slice:":15" }}...</p>
+                <a href="{% url 'report_detail' report.id %}">Zobacz szczegóły</a>
+            </div>
+        {% empty %}
+            <p>Brak zgłoszeń do wyświetlenia.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
