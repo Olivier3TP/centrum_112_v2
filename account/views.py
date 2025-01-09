@@ -1,9 +1,11 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from account.forms import LoginForm
+from account.models import CustomUser
 from reports.models import Report
+
 
 
 # Create your views here.
@@ -29,11 +31,18 @@ def user_login(request):
     return render(request, 'account/login.html', {'form': form})
 @login_required
 def medic_dashboard(request):
+    # if request.method == 'POST' and 'logout' in request.POST:
+    #     logout(request)
+    #     return render(request, 'home.html')
     pass
 @login_required
 def dispatcher_dashboard(request):
     reports = Report.objects.all()
-    return render(request, 'account/dispatcher_dashboard.html', {'reports': reports})
+    medics = CustomUser.objects.filter(role='medic')
+    if request.method == 'POST' and 'logout' in request.POST:
+        logout(request)
+        return render(request, 'home.html')
+    return render(request, 'account/dispatcher_dashboard.html', {'reports': reports, 'medics': medics, 'dispatchers': request.user})
 
 def home(request):
     return render(request, 'home.html')

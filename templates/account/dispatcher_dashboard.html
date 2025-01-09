@@ -1,0 +1,199 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="Img/Tiside-code.webp" type="image/x-icon">
+    <link href="{% static "css/dispatcher.css" %}" rel="stylesheet">
+    <link rel="shortcut icon" href="https://112.be/themes/custom/be112/logo.svg" type="image/x-icon">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+    {% block content %}
+        <div class="main">
+            <div class="nav">
+                <div class="logo">
+                    <img src="https://112.be/themes/custom/be112/logo.svg" alt="">
+                    <h4>Centra Powiadamiania<span> Ratunkowego</span></h4>
+                </div>
+                <div class="user">
+                    <div class="toggle-container">
+                        <input type="checkbox" id="toggle-switch" class="toggle-switch">
+                        <label for="toggle-switch" class="toggle-label" onclick="darkMode()">
+                            <div class="sun-icon"><i class='bx bxs-sun'></i></div>
+                            <div class="moon-icon"><i class='bx bxs-moon'></i></div>
+                        </label>
+                    </div>
+                    <div class="user-info">
+                        <p class="username">Witaj,<span>{{ dispatchers.first_name}} {{ dispatchers.last_name }}</span> <br>
+                    </div>
+                    <div class="user-pfp" onclick="DisplayUserUi()">
+                        <i class='bx bxs-cog'></i>
+                        <i class='bx bxs-user-circle'></i>
+                    </div>
+                </div>
+            </div>
+                <div class="main-container">
+                <div class="side">
+                    <ul>
+                        <li><i class='bx bxs-dashboard'></i><span>Dashboard</span></li>
+                        <li><i class='bx bx-user'></i><span>Users</span></li>
+                        <li><i class='bx bx-history'></i><span>History</span></li>
+                        <li><i class='bx bxs-analyse'></i><span>Analytics</span></li>
+                        <li><i class='bx bx-envelope'></i><span>Tickets</span></li>
+                        <li><i class='bx bxs-report'></i><span>Reports</span></li>
+                        <li><i class='bx bxs-cog'></i><span>Settings</span></li>
+                        <li><i class='bx bx-plus'></i><span>New Login</span></li>
+                    </ul>
+                    <form method="post" action="{% url 'user_logout'%}">
+                        {% csrf_token %}
+                        <button><i class='bx bx-log-in'></i><span>Log out</span></button>
+                    </form>
+                </div>
+                <div class="content">
+                    <div class="main-content">
+                        <div class="container">
+                            <h2>Analytics</h2>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="stats-text">
+                                     <p>Total reports</p>
+                                        <h4 class="sales">65,024</h4>
+                                    </div>
+                                    <div class="stats-perc">
+                                      <p>+81%</p>
+                                 </div>
+                                </div>
+                                <div class="col">
+                                    <div class="stats-text">
+                                     <p>Total Visit</p>
+                                     <h4 class="sales">31,403</h4>
+                                 </div>
+                                 <div class="stats-perc">
+                                      <p>+48%</p>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                 <div class="stats-text">
+                                        <p>Searches</p>
+                                        <h4 class="sales">15,552</h4>
+                                    </div>
+                                    <div class="stats-perc">
+                                       <p>+34%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <h4>Dostępni ratownicy medyczni</h4>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="users">
+                                        {% for medic in medics %}
+                                            <div class="new-user-profile"></div>
+                                            <h6>{{ medic.first_name }}</h6>
+                                            <p>{{ medic.username }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <h4>Ostatnie zgłoszenia</h4>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="your-notes">
+                                        {% for report in reports %}
+                                            <h6>{{ report.first_name }} {{ report.last_name }}</h6>
+                                            <h6>{{ report.description|slice:":15" }}</h6>
+                                            <div class="notes-panel">
+                                                <a href="{% url 'report_detail' report.id%}"><button>Otwórz</button></a>
+                                                <div class="notes-manipulate">
+                                                <i class='bx bx-dots-horizontal-rounded' onclick="DisplayNotesPanel('edit-panel1')"></i>
+                                                <ul id="edit-panel1">
+                                                    <li><a href="">Edit</a></li>
+                                                    <li><a href="">Learn more</a></li>
+                                                    <li><a href="">Delete</a></li>
+                                                </ul>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="main-side">
+                        <div class="about-info">
+                            <img src="https://112.be/themes/custom/be112/logo.svg" alt="Tiside">
+                            <h5>Pogotowie Ratunkowe</h5>
+                        </div>
+                        <div class="reminders">
+                            <h4>Reminders</h4>
+                            <i class='bx bx-bell'></i>
+                        </div>
+
+                        <div class="work">
+                            <div class="work-panel">
+                                <div>
+                                    <i class='bx bxs-volume-full'></i>
+                                    <p>Workshop <br>
+                                    <span>some text</span></p>
+                                </div>
+
+                                <i class='bx bx-dots-vertical-rounded'></i>
+                            </div>
+                            <div class="work-panel">
+                                <div>
+                                    <i class='bx bxs-pencil'></i>
+                                    <p>Edit <br>
+                                    <span>some text</span></p>
+                                </div>
+
+                                <i class='bx bx-dots-vertical-rounded'></i>
+                            </div>
+                        </div>
+                        <div class="add-reminders">
+                            <i class='bx bx-plus'></i>
+                            <p>Add Reminders</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script>
+    function darkMode(){
+    document.body.classList.toggle('dark-mode-variables');
+}
+
+function DisplayNotesPanel(panelId) {
+    var panel = document.getElementById(panelId);
+    if (panel.classList.contains('show')) {
+        panel.classList.remove('show');
+    } else {
+        panel.classList.add('show');
+    }
+}
+
+function DisplayUserUi(){
+    var settings = document.querySelector('.bxs-cog');
+    var profile = document.querySelector('.bxs-user-circle');
+    if(settings.classList.contains('show') && profile.classList.contains('show')){
+        settings.classList.remove('show')
+        profile.classList.remove('show')
+    }else{
+        settings.classList.add('show')
+        profile.classList.add('show')
+    }
+}
+</script>

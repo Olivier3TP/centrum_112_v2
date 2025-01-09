@@ -1,0 +1,362 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centrum Powiadamiania Ratunkowego</title>
+    <link rel="stylesheet" href="{% static "css/home.css" %}">
+    <link rel="shortcut icon" href="https://112.be/themes/custom/be112/logo.svg" type="image/x-icon">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <!-- Nav -->
+    <div class="container nav">
+        <div class="row">
+            <div class="col language-switcher">
+                <button data-lang="pl" onclick="switchLanguage('pl', this)">PL</button>
+                <button data-lang="en" onclick="switchLanguage('en', this)">EN</button>
+                <button data-lang="de" onclick="switchLanguage('de', this)">DE</button>
+            </div>
+            <div class="col">
+                <div class="user">
+                    <div class="user-pfp" onclick="DisplayUserUi()">
+                        <a href="{% url 'user_login' %}"><i class='bx bx-log-in'></i></a>
+                        <i class='bx bx-log-out'></i>
+                        <i class='bx bx-cog'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Nav -->
+    <div class="container main-nav">
+        <div class="row">
+            <div class="col">
+                <img src="https://112.be/themes/custom/be112/logo.svg" alt="">
+            </div>
+            <div class="col">
+                <div class="burger">
+                    <i class='bx bx-menu'></i>
+                </div>
+                <ul class="menu">
+                    <li class="lang pl">Menu</li>
+                    <li class="lang en" style="display: none;">Home</li>
+                    <li class="lang de" style="display: none;">Startseite</li>
+
+                    <li class="lang pl"><a href="{% url 'send_report' %}">Wyślij zgłoszenie</a></li>
+                    <li class="lang en" style="display: none;"><a href="{% url 'send_report' %}">Send report</a></li>
+                    <li class="lang de" style="display: none;"><a href="{% url 'send_report' %}">Meldung</a></li>
+
+                    <li class="lang pl">FAQ</li>
+                    <li class="lang en" style="display: none;">FAQ</li>
+                    <li class="lang de" style="display: none;">FAQ</li>
+
+                    <li class="lang pl">Kontakt</li>
+                    <li class="lang en" style="display: none;">Contact</li>
+                    <li class="lang de" style="display: none;">Kontakt</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <div class="container header">
+        <div class="row">
+            <div class="col">
+                <h2 class="lang pl">Zawsze ktoś jest gotów Ci pomóc</h2>
+                <h2 class="lang en" style="display: none;">There is always someone on standby to help you in need</h2>
+                <h2 class="lang de" style="display: none;">Es ist immer jemand bereit, Ihnen in Not zu helfen</h2>
+                <ul class="numbers">
+                    <li class="lang pl"><i class='bx bx-check' style='color:#1feb17'></i> Zadzwoń 112, aby uzyskać pomoc</li>
+                    <li class="lang en" style="display: none;"><i class='bx bx-check' style='color:#1feb17'></i> Call 112 for emergency assistance</li>
+                    <li class="lang de" style="display: none;"><i class='bx bx-check' style='color:#1feb17'></i> Rufen Sie 112 für Notfallhilfe an</li>
+
+                    <li class="lang pl"><i class='bx bx-check' style='color:#1feb17'></i> Zadzwoń 101, aby uzyskać pomoc w nagłych wypadkach</li>
+                    <li class="lang en" style="display: none;"><i class='bx bx-check' style='color:#1feb17'></i> Call 101 for emergency assistance</li>
+                    <li class="lang de" style="display: none;"><i class='bx bx-check' style='color:#1feb17'></i> Rufen Sie 101 für Notfallhilfe an</li>
+
+                    <li class="lang pl"><i class='bx bx-check' style='color:#1feb17'></i> Zadzwoń 112 bezpłatnie we wszystkich krajach europejskich</li>
+                    <li class="lang en" style="display: none;"><i class='bx bx-check' style='color:#1feb17'></i> Call 112 for free in all European countries</li>
+                    <li class="lang de" style="display: none;"><i class='bx bx-check' style='color:#1feb17'></i> Rufen Sie 112 kostenlos in allen europäischen Ländern an</li>
+
+                </ul>
+                <div class="btn-group">
+                    <button class="lang pl header-btn1">Jak zadzwonić?</button>
+                    <button class="lang en header-btn1" style="display: none;">How to call?</button>
+                    <button class="lang de header-btn1" style="display: none;">Wie rufen Sie an?</button>
+
+                    <button class="lang pl header-btn2">Zobacz numery alarmowe</button>
+                    <button class="lang en header-btn2" style="display: none;">View all emergency numbers</button>
+                    <button class="lang de header-btn2" style="display: none;">Alle Notrufnummern anzeigen</button>
+                </div>
+            </div>
+            <div class="col">
+                <img src="https://112.be/sites/default/files/styles/1700x1272/public/2023-03/home%20header-2.png" alt="">
+            </div>
+        </div>
+    </div>
+
+    <!-- Info -->
+    <div class="container app">
+        <div class="row">
+            <div class="col">
+                <h2 class="lang pl">Służby ratunkowe są zawsze gotowe do pomocy</h2>
+                <h2 class="lang en" style="display: none;">Emergency services are always there to help</h2>
+                <h2 class="lang de" style="display: none;">Notdienste stehen immer bereit zu helfen</h2>
+
+                <p class="lang pl">
+                    Gdy każda sekunda ma znaczenie, ważne jest, aby wiedzieć, gdzie szukać pomocy.
+                    Pamiętaj, że numery alarmowe są dostępne dla wszystkich obywateli, aby chronić Twoje życie,
+                    zdrowie i mienie.
+                    <br><br>
+                    Twój spokój ducha jest naszym priorytetem. W każdej sytuacji pamiętaj, że nie jesteś sam.
+                    Zadzwoń na numery alarmowe na czas i w odpowiedni sposób.
+                </p>
+
+                <p class="lang en" style="display: none;">
+                    When every second counts, it's important to know where to go for help.
+                    Remember that emergency numbers are available to all citizens to protect your life,
+                    health, and property.
+                    <br><br>
+                    Your peace of mind is our number one priority. In all circumstances, know that you are not alone.
+                    Call the emergency services on time and in the right way.
+                </p>
+
+                <p class="lang de" style="display: none;">
+                    Wenn jede Sekunde zählt, ist es wichtig zu wissen, wohin man sich wenden kann.
+                    Denken Sie daran, dass Notrufnummern allen Bürgern zur Verfügung stehen, um Ihr Leben,
+                    Ihre Gesundheit und Ihr Eigentum zu schützen.
+                    <br><br>
+                    Ihr Seelenfrieden ist unsere oberste Priorität. Unter allen Umständen wissen Sie, dass Sie nicht allein sind.
+                    Rufen Sie die Notdienste rechtzeitig und auf die richtige Weise an.
+                </p>
+                <button class="more lang pl">Więcej informacji</button>
+                <button class="more lang en" style="display: none;">More info</button>
+                <button class="more lang de" style="display: none;">Mehr Informationen</button>
+            </div>
+            <div class="col">
+                <img src="https://112.be/sites/default/files/styles/600x600/public/2023-03/112-app%201%20EN.jpg" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- Second Info -->
+    <div class="container info">
+        <div class="row">
+            <div class="col">
+                <h4 class="lang pl">Aby uzyskać szczegółowe informacje i aktualizacje, odwiedź oficjalną stronę Ministerstwa.</h4>
+                <h4 class="lang en" style="display: none;">For detailed information and updates, please visit the official website of the Ministry.</h4>
+                <h4 class="lang de" style="display: none;">Für detaillierte Informationen und Updates besuchen Sie bitte die offizielle Website des Ministeriums.</h4>
+
+            </div>
+            <div class="col">
+               <a href="https://www.gov.pl/web/mswia/centra-powiadamiania-ratunkowego?utm_source=chatgpt.com"><button>gov.pl</button></a>
+            </div>
+        </div>
+    </div>
+    <div class="container function">
+        <div class="row">
+
+            <h2 class="lang pl">Kluczowe funkcje Centrum Powiadamiania Ratunkowego</h2>
+            <h2 class="lang en" style="display: none;">Key functions of the Emergency Notification Center</h2>
+            <h2 class="lang de" style="display: none;">Hauptfunktionen des Notrufzentrums</h2>
+            <p class="lang pl">
+                Zapewniamy szybki dostęp do kluczowych informacji i usług ratunkowych. Sprawdź, jak możemy Ci pomóc.
+            </p>
+
+            <p class="lang en" style="display: none;">
+                We provide quick access to critical information and emergency services. Check out how we can help you.
+            </p>
+
+            <p class="lang de" style="display: none;">
+                Wir bieten schnellen Zugriff auf wichtige Informationen und Notfalldienste. Sehen Sie, wie wir Ihnen helfen können.
+            </p>
+            <div class="col">
+                <img src="{% static 'images/usluga-online-zdiecie-home-html.png' %}" alt="">
+            </div>
+            <div class="col">
+                <div class="functions-elements">
+                    <div class="element">
+                        <video class="_e0usu51 _e0usu52" src="https://cdn-icons-mp4.freepik.com/512/16767/16767265.mp4" autoplay="" loop="" playsinline="" width="128" height="128" title="połączenie alarmowe Basic Accent Lineal Color ikona"></video>
+                        <h4 class="lang pl">Alarmowanie służb</h4>
+                        <h4 class="lang en" style="display: none;">Emergency Alerting</h4>
+                        <h4 class="lang de" style="display: none;">Notfallalarm</h4>
+                    </div>
+                    <div class="element">
+                        <video class="_e0usu51 _e0usu52" src="https://cdn-icons-mp4.freepik.com/512/16767/16767278.mp4" autoplay="" loop="" playsinline="" width="128" height="128" title="ogień Basic Accent Lineal Color ikona"></video>
+                        <h4 class="lang pl">Lokalizacja i priorytetyzacja</h4>
+                        <h4 class="lang en" style="display: none;">Localization and Prioritization</h4>
+                        <h4 class="lang de" style="display: none;">Lokalisierung und Priorisierung</h4>
+                    </div>
+                    <div class="element">
+                        <video class="_e0usu51 _e0usu52" src="https://cdn-icons-mp4.freepik.com/512/16767/16767290.mp4" autoplay="" loop="" playsinline="" width="128" height="128" title="ambulans Basic Accent Lineal Color ikona"></video>
+                        <h4 class="lang pl">Lokalizacja i priorytetyzacja</h4>
+                        <h4 class="lang en" style="display: none;">Localization and Prioritization</h4>
+                        <h4 class="lang de" style="display: none;">Lokalisierung und Priorisierung</h4>
+                    </div>
+                    <div class="element">
+                        <video class="_e0usu51 _e0usu52" src="https://cdn-icons-mp4.freepik.com/512/12743/12743734.mp4" autoplay="" loop="" playsinline="" width="128" height="128" title="otwarta książka Basic Accent Lineal Color ikona"></video>
+                        <h4 class="lang pl">Edukacja i wsparcie</h4>
+                        <h4 class="lang en" style="display: none;">Education and Support</h4>
+                        <h4 class="lang de" style="display: none;">Bildung und Unterstützung</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container interes">
+        <div class="row">
+            <div class="col">
+                <i class='bx bx-question-mark'></i>
+                <h4>FAQ</h4>
+                <p class="lang pl">
+                    Wszystko, co chcesz wiedzieć o numerze alarmowym 112 (kiedy go używać,
+                    jakie informacje podać i jak najlepiej postępować), znajdziesz tutaj.
+                </p>
+
+                <p class="lang en" style="display: none;">
+                    Everything you want to know about the 112 emergency number (when to use it,
+                    what information to give and how best to act) can be found here.
+                </p>
+
+                <p class="lang de" style="display: none;">
+                    Alles, was Sie über die Notrufnummer 112 wissen möchten (wann sie zu verwenden ist,
+                    welche Informationen zu geben sind und wie Sie am besten handeln), finden Sie hier.
+                </p>
+                <button class="lang pl">Więcej informacji</button>
+                <button class="lang en" style="display: none;">More Info</button>
+                <button class="lang de" style="display: none;">Mehr Informationen</button>
+            </div>
+            <div class="col">
+                <i class='bx bx-child'></i>
+                <h4 class="lang pl">Dzieci</h4>
+                <h4 class="lang en" style="display: none;">Kids</h4>
+                <h4 class="lang de" style="display: none;">Kinder</h4>
+                <p class="lang pl">
+                    Niezwykle ważne jest, aby dzieci nie tylko wiedziały, że istnieje numer alarmowy 112,
+                    ale także, że mogą go używać w sytuacjach awaryjnych.
+                </p>
+
+                <p class="lang en" style="display: none;">
+                    It is incredibly important for children not only to know that the emergency number 112 exists,
+                    but also that they can use it in emergencies.
+                </p>
+
+                <p class="lang de" style="display: none;">
+                    Es ist unglaublich wichtig, dass Kinder nicht nur wissen, dass die Notrufnummer 112 existiert,
+                    sondern auch, dass sie diese in Notfällen nutzen können.
+                </p>
+                <button class="lang pl">Więcej informacji</button>
+                <button class="lang en" style="display: none;">More Info</button>
+                <button class="lang de" style="display: none;">Mehr Informationen</button>
+            </div>
+            <div class="col">
+                <i class='bx bxs-briefcase' ></i>
+                <h4 class="lang pl">Oferty pracy</h4>
+                <h4 class="lang en" style="display: none;">Job vacancies</h4>
+                <h4 class="lang de" style="display: none;">Stellenangebote</h4>
+                <p class="lang pl">
+                    Praca operatora to jeden z najważniejszych zawodów, jakie możesz mieć.
+                    Jesteś kluczowym ogniwem w łańcuchu reagowania kryzysowego.
+                    Twoje profesjonalizm i opanowanie mogą uratować życie!
+                </p>
+
+                <p class="lang en" style="display: none;">
+                    The job of operator/calltaker is one of the finest professions you can have.
+                    You are an essential link in the emergency response chain.
+                    Your professionalism and cool-headedness can save lives!
+                </p>
+
+                <p class="lang de" style="display: none;">
+                    Der Beruf des Operators/Anrufbearbeiters ist einer der schönsten Berufe, die man haben kann.
+                    Sie sind ein wesentliches Glied in der Notfallreaktionskette.
+                    Ihre Professionalität und Ruhe können Leben retten!
+                </p>
+
+                <button class="lang pl">Więcej informacji</button>
+                <button class="lang en" style="display: none;">More Info</button>
+                <button class="lang de" style="display: none;">Mehr Informationen</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="row">
+            <div class="col">
+                <p class="lang pl">© 2025 Służby ratunkowe. Wszelkie prawa zastrzeżone.</p>
+                <p class="lang en" style="display: none;">© 2025 Emergency Services. All rights reserved.</p>
+                <p class="lang de" style="display: none;">© 2025 Notfalldienste. Alle Rechte vorbehalten.</p>
+            </div>
+            <div class="col">
+                <a href="#">Accessibility and Privacy Statement</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+    const burger = document.querySelector('.burger');
+    const menu = document.querySelector('.menu');
+
+    burger.addEventListener('click', () => {
+        menu.classList.toggle('show');
+    });
+});
+
+
+function DisplayUserUi() {
+    var userPfp = document.querySelector('.user-pfp');
+    var login = document.querySelector('.bx-log-in');
+    var logout = document.querySelector('.bx-log-out');
+    var settings = document.querySelector('.bx-cog');
+
+    userPfp.classList.toggle('active');
+
+    if (login.classList.contains('show') && logout.classList.contains('show') && settings.classList.contains('show')) {
+        settings.classList.remove('show');
+        login.classList.remove('show');
+        logout.classList.remove('show');
+    } else {
+        settings.classList.add('show');
+        login.classList.add('show');
+        logout.classList.add('show');
+    }
+}
+
+
+
+function switchLanguage(language, button) {
+
+    document.querySelectorAll('.lang').forEach(lang => {
+        lang.style.display = 'none';
+    });
+
+    document.querySelectorAll(`.lang.${language}`).forEach(lang => {
+        lang.style.display = 'block';
+    });
+
+    document.querySelectorAll('.language-switcher button').forEach(btn => {
+        btn.classList.remove('active');
+    });
+
+    if (button) {
+        button.classList.add('active');
+    } else {
+        const defaultButton = document.querySelector(`.language-switcher button[data-lang="${language}"]`);
+        if (defaultButton) {
+            defaultButton.classList.add('active');
+        }
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    switchLanguage('pl');
+});
+</script>

@@ -11,4 +11,4 @@ class CustomUser(AbstractUser):
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='dispatcher')
 
     def __str__(self):
-        return f'Profil użytkownika: self.first_name , self.last_name'
+        return f'Profil użytkownika: {self.first_name} , {self.last_name}'
