@@ -43,10 +43,11 @@
                         <li><i class='bx bx-user'></i><span>Users</span></li>
                         <li><i class='bx bx-history'></i><span>History</span></li>
                         <li><i class='bx bxs-analyse'></i><span>Analytics</span></li>
-                        <li><i class='bx bx-envelope'></i><span>Tickets</span></li>
-                        <li><i class='bx bxs-report'></i><span>Reports</span></li>
-                        <li><i class='bx bxs-cog'></i><span>Settings</span></li>
-                        <li><i class='bx bx-plus'></i><span>New Login</span></li>
+                        <li><a href=""><i class='bx bx-envelope'></i><span>Tickets</span></a></li>
+
+{#                        <li><i class='bx bxs-report'></i><span>Reports</span></li>#}
+{#                        <li><i class='bx bxs-cog'></i><span>Settings</span></li>#}
+{#                        <li><i class='bx bx-plus'></i><span>New Login</span></li>#}
                     </ul>
                     <form method="post" action="{% url 'user_logout'%}">
                         {% csrf_token %}
@@ -91,13 +92,13 @@
                             <h4>Dostępni ratownicy medyczni</h4>
                             <div class="row">
                                 <div class="col">
+                                    {% for medic in medics %}
                                     <div class="users">
-                                        {% for medic in medics %}
                                             <div class="new-user-profile"></div>
                                             <h6>{{ medic.first_name }}</h6>
                                             <p>{{ medic.username }}</p>
-                                        {% endfor %}
                                     </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -105,10 +106,11 @@
                             <h4>Ostatnie zgłoszenia</h4>
                             <div class="row">
                                 <div class="col">
+                                    {% for report in reports %}
                                     <div class="your-notes">
-                                        {% for report in reports %}
-                                            <h6>{{ report.first_name }} {{ report.last_name }}</h6>
-                                            <h6>{{ report.description|slice:":15" }}</h6>
+
+                                            <h5>{{ report.first_name }} {{ report.last_name }}</h5>
+                                            <h5>{{ report.address }}</h5>
                                             <div class="notes-panel">
                                                 <a href="{% url 'report_detail' report.id%}"><button>Otwórz</button></a>
                                                 <div class="notes-manipulate">
@@ -120,8 +122,9 @@
                                                 </ul>
                                                 </div>
                                             </div>
-                                        {% endfor %}
+
                                     </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
