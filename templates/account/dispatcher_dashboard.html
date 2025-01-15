@@ -43,11 +43,6 @@
                         <li><i class='bx bx-user'></i><span>Users</span></li>
                         <li><i class='bx bx-history'></i><span>History</span></li>
                         <li><i class='bx bxs-analyse'></i><span>Analytics</span></li>
-                        <li><a href=""><i class='bx bx-envelope'></i><span>Tickets</span></a></li>
-
-{#                        <li><i class='bx bxs-report'></i><span>Reports</span></li>#}
-{#                        <li><i class='bx bxs-cog'></i><span>Settings</span></li>#}
-{#                        <li><i class='bx bx-plus'></i><span>New Login</span></li>#}
                     </ul>
                     <form method="post" action="{% url 'user_logout'%}">
                         {% csrf_token %}
@@ -103,12 +98,11 @@
                             </div>
                         </div>
                         <div class="container">
-                            <h4>Ostatnie zgłoszenia</h4>
+                            <h4>Zgłoszenia</h4>
                             <div class="row">
                                 <div class="col">
                                     {% for report in reports %}
                                     <div class="your-notes">
-
                                             <h5>{{ report.first_name }} {{ report.last_name }}</h5>
                                             <h5>{{ report.address }}</h5>
                                             <div class="notes-panel">

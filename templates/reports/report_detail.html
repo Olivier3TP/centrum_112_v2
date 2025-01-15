@@ -1,15 +1,144 @@
-{% block title %}Szczegóły zgłoszenia{% endblock %}
-
+{% load static%}
 {% block content %}
-    <h1>Szczegóły zgłoszenia</h1>
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="Img/Tiside-code.webp" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/report_detail.css'%}">
+    <link rel="shortcut icon" href="https://112.be/themes/custom/be112/logo.svg" type="image/x-icon">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Dashboard</title>
+</head>
+<body>
 
-    <div>
-        <p>ID zgłoszenia: {{ report.id }}</p>
-        <p>Osoba: {{ report.first_name }} {{ report.last_name }}</p>
-        <p>Opis: {{ report.description }}</p>
-        <p>Adres: {{ report.address }}</p>
+    <div class="main">
+        <div class="nav">
+            <div class="logo">
+                <a href="menu.html"><img src="https://112.be/themes/custom/be112/logo.svg" alt=""></a>
+                <h4>Centra Powiadamiania<span> Ratunkowego</span></h4>
+            </div>
+            <div class="user">
+                <div class="toggle-container">
+                    <input type="checkbox" id="toggle-switch" class="toggle-switch">
+                    <label for="toggle-switch" class="toggle-label" onclick="darkMode()">
+                        <div class="sun-icon"><i class='bx bxs-sun'></i></div>
+                        <div class="moon-icon"><i class='bx bxs-moon'></i></div>
+                    </label>
+                </div>
+                <div class="user-info">
+                    <p class="username">Hey,<span>Uzytkownik</span> <br>
+                        Medyk</p>
+                </div>
+                <div class="user-pfp" onclick="DisplayUserUi()">
+                    <i class='bx bxs-cog'></i>
+                    <i class='bx bxs-user-circle'></i>
+                </div>
+            </div>
+        </div>
+            <div class="main-container">
+            <div class="side">
+                <ul>
+                    <li><i class='bx bxs-dashboard'></i><span>Dashboard</span></li>
+                    <li><i class='bx bx-envelope'></i><span>Powiadomienia</span></li>
+                    <li><i class='bx bxs-report'></i><span>Zgłoszenia</span></li>
+                </ul>
+                <form method="post" action="{% url 'user_logout'%}">
+                        {% csrf_token %}
+                        <button><i class='bx bx-log-in'></i><span>Log out</span></button>
+                    </form>
+            </div>
+            <div class="content">
+                <div class="main-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/1280px-Placeholder_view_vector.svg.png" alt="">
+                            </div>
+                            <div class="col">
+                                <h2>Zgłoszenie nr: 1</h2>
+                                <h4>Dane:</h4>
+                                <div class="data">
+                                    <div class="name">
+                                        <p class="data-info">Imie Nazwisko:</p>
+                                        <p>{{ report.first_name }} {{ report.last_name }}</p>
+                                    </div>
+                                    <br>
+                                    <div class="adress">
+                                        <p class="data-info">Adres:</p>
+                                        <p>{{ report.address }}</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h4>Opis:</h4>
+                                <p>{{ report.description }}</p>
+                                {% if user.role == 'dispatcher' %}
+                                <h2>Przypisz Medyka</h2>
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <select name="medic_id">
+                                            {% for medic in medics %}
+                                            <option value="{{ medic.id }}">{{ medic.username }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <button type="submit">Przypisz</button>
+                                    </form>
+                                {% endif %}
+                                <a href="{% url 'dispatcher_dashboard' %}">Powrót do listy zgłoszeń</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="main-side">
+                    <div class="about-info">
+                        <img src="https://112.be/themes/custom/be112/logo.svg" alt="Tiside">
+                        <h5>Pogotowie Ratunkowe</h5>
+                        <p>Medyk</p>
+                    </div>
+                    <div class="reminders">
+                        <h4>Powiadomienia</h4>
+                        <i class='bx bx-bell'></i>
+                    </div>
+
+                    <div class="work">
+                        <div class="work-panel">
+                            <div>
+                                <i class='bx bxs-volume-full'></i>
+                                <p>Zgłoszenia <br>
+                                <span>Powiadomienia nowych zgłoszeń, bądź zawsze gotowy</span></p>
+                            </div>
+
+                            <i class='bx bx-dots-vertical-rounded'></i>
+                        </div>
+                        <div class="work-panel">
+                            <div>
+                                <i class='bx bxs-pencil'></i>
+                                <p>Edytuj<br>
+                                <span>Edytuj zgłoszenia</span></p>
+                            </div>
+
+                            <i class='bx bx-dots-vertical-rounded'></i>
+                        </div>
+                    </div>
+                    <div class="add-reminders">
+                        <i class='bx bx-plus'></i>
+                        <p>Dodaj przypomnienia</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
-    <a href="{% url 'dispatcher_dashboard' %}">Powrót do dashboardu</a>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="{% static 'js/panel.js' %}"></script>
+</body>
+</html>
 {% endblock %}

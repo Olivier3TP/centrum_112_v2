@@ -31,18 +31,26 @@ def user_login(request):
     return render(request, 'account/login.html', {'form': form})
 @login_required
 def medic_dashboard(request):
-    # if request.method == 'POST' and 'logout' in request.POST:
-    #     logout(request)
-    #     return render(request, 'home.html')
-    pass
+    reports = Report.objects.filter(assigned_to=request.user)
+    return render(request, 'account/medic_dashboard.html', {'reports': reports, 'medic': request.user})
 @login_required
 def dispatcher_dashboard(request):
     reports = Report.objects.all()
     medics = CustomUser.objects.filter(role='medic')
-    if request.method == 'POST' and 'logout' in request.POST:
-        logout(request)
-        return render(request, 'home.html')
-    return render(request, 'account/dispatcher_dashboard.html', {'reports': reports, 'medics': medics, 'dispatchers': request.user})
+
+    if request.method == 'POST':
+        report_id = request.POST.get('report_id')
+        medic_id = request.POST.get('medic_id')
+
+        try:
+            report = Report.objects.get(id=report_id)
+            medic = CustomUser.objects.get(id=medic_id, role='medic')
+            report.assigned_to = medic
+            report.save()
+        except (Report.DoesNotExist, CustomUser.DoesNotExist):
+            return HttpResponse("Niepoprawne dane.", status=400)
+
+    return render(request, 'account/dispatcher_dashboard.html',{'reports': reports, 'medics': medics, 'dispatchers': request.user})
 
 def home(request):
     return render(request, 'home.html')
