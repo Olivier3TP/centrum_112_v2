@@ -42,9 +42,9 @@
             <div class="main-container">
             <div class="side">
                 <ul>
-                    <li><i class='bx bxs-dashboard'></i><span>Dashboard</span></li>
-                    <li><i class='bx bx-envelope'></i><span>Powiadomienia</span></li>
-                    <li><i class='bx bxs-report'></i><span>Zgłoszenia</span></li>
+                    <li><a href="{% url back_url %}"><i class='bx bxs-dashboard'></i><span>Dashboard</span></a></li>
+                    <li><a href="{% url back_url %}"><i class='bx bx-envelope'></i><span>Powiadomienia</span></a></li>
+                    <li><a href="{% url back_url %}"><i class='bx bxs-report'></i><span>Zgłoszenia</span></a></li>
                 </ul>
                 <form method="post" action="{% url 'user_logout'%}">
                         {% csrf_token %}
@@ -59,7 +59,7 @@
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/1280px-Placeholder_view_vector.svg.png" alt="">
                             </div>
                             <div class="col">
-                                <h2>Zgłoszenie nr: 1</h2>
+                                <h2>Zgłoszenie nr: {{ report.id }}</h2>
                                 <h4>Dane:</h4>
                                 <div class="data">
                                     <div class="name">
@@ -75,6 +75,11 @@
                                 <hr>
                                 <h4>Opis:</h4>
                                 <p>{{ report.description }}</p>
+                                {% if report.photo %}
+                                    <img src="{{ report.photo.url }}" alt="report_photo">
+                                {% else %}
+                                    <p>Brak zdięcia</p>
+                                {% endif %}
                                 {% if user.role == 'dispatcher' %}
                                 <h2>Przypisz Medyka</h2>
                                     <form method="post">
@@ -86,8 +91,15 @@
                                         </select>
                                         <button type="submit">Przypisz</button>
                                     </form>
+                                    {% if messages %}
+                                        <div class="messages">
+                                            {% for message in messages %}
+                                                <p class="alert alert-success">{{ message }}</p>
+                                        {% endfor %}
+                                        </div>
+                                    {% endif %}
                                 {% endif %}
-                                <a href="{% url 'dispatcher_dashboard' %}">Powrót do listy zgłoszeń</a>
+                                <a href="{% url back_url %}">Powrót do listy zgłoszeń</a>
                             </div>
                         </div>
                     </div>

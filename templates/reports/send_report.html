@@ -73,21 +73,18 @@
 	<h2 class="lang de">Bericht</h2>
     <div class="contact1">
 			<div class="container-contact1">
-				<div class="contact1-pic js-tilt" data-tilt>
-					<img id="previewImage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/1280px-Placeholder_view_vector.svg.png" alt="Image" />
-					<input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="handleFileUpload(event)" />
-					<button class="btn-image" onclick="document.getElementById('imageInput').click();">
-						<span class="btn-text lang pl">Dołącz grafikę</span>
-						<span class="btn-text lang en">Attach image</span>
-						<span class="btn-text lang de">Bild anhängen</span>
-						<span class="btn-icon"><i class='bx bx-upload'></i></span>
-					</button>
-				</div>
-                <form action="#" method="post">
+                <form action="#" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
+                    <button type="submit" class="contact1-form-btn">Wyślij</button>
                 </form>
-
+                {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                            <p class="alert alert-success">{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
 			</div>
 		</div>
     </div>

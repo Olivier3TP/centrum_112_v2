@@ -8,6 +8,7 @@ class Report(models.Model):
     last_name = models.CharField(max_length=100)
     address = models.CharField(max_length=255)
     description = models.TextField()
+    photo = models.ImageField(upload_to='photo/', blank=True, null=True)
     assigned_to = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
