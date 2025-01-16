@@ -235,6 +235,78 @@ body {
     transition: transform 0.5s ease, color 0.5s ease;
 }
 
+.side ul li a{
+    text-decoration: none;
+    color: var(--color-dark-variant);
+    transition: transform 0.5s ease, color 0.5s ease;
+}
+
+.container .assign-medic-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 15px 0;
+}
+
+.container .assign-medic-form .form-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.container .assign-medic-form .form-select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container .assign-medic-form .form-select:focus {
+    border-color: #da0d1e;
+    box-shadow: 0 0 5px rgba(218, 13, 30, 0.5);
+    outline: none;
+}
+
+.container .assign-medic-form .btn-submit {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #da0d1e;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container .assign-medic-form .btn-submit:hover {
+    background-color: #b90c18;
+    box-shadow: 0px 0px 15px rgba(148, 19, 19, 0.808);
+}
+
+.container .messages {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #e8f5e9;
+    border: 1px solid #81c784;
+    color: var();
+    font-size: 14px;
+}
+
+.side ul li a:hover{
+color: var(--color-primary);
+}
 .side ul li:hover {
     color: var(--color-primary);
     transform: translate(10px, 0px);
@@ -263,6 +335,7 @@ body {
     left: 5%;
     transition: left 0.5s ease;
 }
+
 
 .side button span {
     margin-left: 25px;
@@ -317,7 +390,12 @@ body {
 
 .container .row .col:nth-of-type(1) img{
     width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 10px;
 }
+
+
 
 .content .container .row .col {
     display: flex;

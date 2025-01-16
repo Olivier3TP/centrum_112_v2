@@ -5,8 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="shortcut icon" href="Img/Tiside-code.webp" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css/report_detail.css'%}">
+        <link rel="stylesheet" href="{% static 'css/report_detail.css'%}">
     <link rel="shortcut icon" href="https://112.be/themes/custom/be112/logo.svg" type="image/x-icon">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel="stylesheet">
     <script src="https://unpkg.com/scrollreveal"></script>
@@ -42,7 +43,7 @@
             <div class="main-container">
             <div class="side">
                 <ul>
-                    <li><a href="{% url back_url %}"><i class='bx bxs-dashboard'></i><span>Dashboard</span></a></li>
+                    <li><a href="{% url back_url %} "><i class='bx bxs-dashboard'></i><span>Dashboard</span></a></li>
                     <li><a href="{% url back_url %}"><i class='bx bx-envelope'></i><span>Powiadomienia</span></a></li>
                     <li><a href="{% url back_url %}"><i class='bx bxs-report'></i><span>Zgłoszenia</span></a></li>
                 </ul>
@@ -56,7 +57,9 @@
                     <div class="container">
                         <div class="row">
                             <div class="col">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/1280px-Placeholder_view_vector.svg.png" alt="">
+                                {% if report.photo %}
+                                    <img src="{{ report.photo.url }}" alt="report_photo">
+                                {% endif %}
                             </div>
                             <div class="col">
                                 <h2>Zgłoszenie nr: {{ report.id }}</h2>
@@ -75,21 +78,17 @@
                                 <hr>
                                 <h4>Opis:</h4>
                                 <p>{{ report.description }}</p>
-                                {% if report.photo %}
-                                    <img src="{{ report.photo.url }}" alt="report_photo">
-                                {% else %}
-                                    <p>Brak zdięcia</p>
-                                {% endif %}
                                 {% if user.role == 'dispatcher' %}
                                 <h2>Przypisz Medyka</h2>
-                                    <form method="post">
+                                    <form method="post" class="assign-medic-form">
                                         {% csrf_token %}
-                                        <select name="medic_id">
+                                        <label for="medic_id" class="form-label">Wybierz Medyka:</label>
+                                        <select name="medic_id" id="medic_id" class="form-select">
                                             {% for medic in medics %}
                                             <option value="{{ medic.id }}">{{ medic.username }}</option>
                                             {% endfor %}
                                         </select>
-                                        <button type="submit">Przypisz</button>
+                                        <button type="submit" class="btn-submit">Przypisz</button>
                                     </form>
                                     {% if messages %}
                                         <div class="messages">
@@ -99,7 +98,6 @@
                                         </div>
                                     {% endif %}
                                 {% endif %}
-                                <a href="{% url back_url %}">Powrót do listy zgłoszeń</a>
                             </div>
                         </div>
                     </div>

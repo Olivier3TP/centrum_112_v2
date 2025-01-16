@@ -72,20 +72,81 @@
 	<h2 class="lang en">Report</h2>
 	<h2 class="lang de">Bericht</h2>
     <div class="contact1">
-			<div class="container-contact1">
-                <form action="#" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="contact1-form-btn">Wyślij</button>
-                </form>
-                {% if messages %}
+<!--                <div class="contact1-pic js-tilt" data-tilt>-->
+
+<!--&lt;!&ndash;					<button class="btn-image" onclick="document.getElementById('imageInput').click();">&ndash;&gt;-->
+<!--&lt;!&ndash;						<span class="btn-text lang pl">Dołącz grafikę</span>&ndash;&gt;-->
+<!--&lt;!&ndash;						<span class="btn-text lang en">Attach image</span>&ndash;&gt;-->
+<!--&lt;!&ndash;						<span class="btn-text lang de">Bild anhängen</span>&ndash;&gt;-->
+<!--&lt;!&ndash;						<span class="btn-icon"><i class='bx bx-upload'></i></span>&ndash;&gt;-->
+<!--&lt;!&ndash;					</button>&ndash;&gt;-->
+<!--				</div>-->
+                <form action="#" method="post" class="contact1-form validate-form" enctype="multipart/form-data">
+                	{% csrf_token %}
+                    <div class="container-contact1">
+<div class="contact1-pic js-tilt">
+            <img
+                id="previewImage"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/1280px-Placeholder_view_vector.svg.png"
+                alt="Image" />
+
+            <label class="btn-image" for="photo">
+                <span class="btn-text lang pl">Dołącz grafikę</span>
+                <span class="btn-text lang en" style="display: none;">Attach Image</span>
+                <span class="btn-text lang de" style="display: none;">Bild anhängen</span>
+                <span class="btn-icon"><i class='bx bx-upload'></i></span>
+            </label>
+
+            <input
+                id="photo"
+                type="file"
+                name="photo"
+                class="input1"
+                style="display: none;"
+                onchange="previewFile()" />
+        </div>
+                    <div class="form-info">
+                        <div class="wrap-input1 validate-input">
+                    	{{ form.first_name }}
+                    	<span class="shadow-input1"></span>
+                	</div>
+                	<div class="wrap-input1 validate-input">
+                    	{{ form.last_name }}
+                    	<span class="shadow-input1"></span>
+                	</div>
+                	<div class="wrap-input1 validate-input">
+                    	{{ form.address }}
+                    	<span class="shadow-input1"></span>
+                	</div>
+                	<div class="wrap-input1 validate-input">
+                    	{{ form.description }}
+                    	<span class="shadow-input1"></span>
+                	</div>
+                    <div class="container-contact1-form-btn">
+                        <button type="submit" class="contact1-form-btn lang pl">
+                            Wyślij
+                        </button>
+                        <button type="submit" class="contact1-form-btn lang en" style="display: none;">
+                            Send
+                        </button>
+                        <button type="submit" class="contact1-form-btn lang de" style="display: none;">
+                            Senden
+                        </button>
+
+                    </div>
+
+                    </div>
+                        {% if messages %}
                     <div class="messages">
                         {% for message in messages %}
                             <p class="alert alert-success">{{ message }}</p>
                         {% endfor %}
                     </div>
                 {% endif %}
-			</div>
+                    </div>
+
+            	</form>
+
 		</div>
     </div>
 </div>
@@ -106,18 +167,19 @@
 
 <script src="{% static 'js/main.js' %}"></script>
 <script>
-// Wysyłanie zdjecia
-function handleFileUpload(event) {
-        const file = event.target.files[0];
+    function previewFile() {
+        const fileInput = document.getElementById('photo');
         const previewImage = document.getElementById('previewImage');
 
+        // Проверяем, выбран ли файл
+        const file = fileInput.files[0];
         if (file) {
             const reader = new FileReader();
 
+            // Загружаем содержимое файла и обновляем `src` изображения
             reader.onload = function (e) {
                 previewImage.src = e.target.result;
             };
-
             reader.readAsDataURL(file);
         }
     }

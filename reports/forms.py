@@ -11,7 +11,9 @@ class ReportForm(forms.ModelForm):
         max_length=100,
         widget=forms.TextInput(attrs={
             'class': 'input1 lang pl',
-            'placeholder': 'Imię'
+            'placeholder': 'Imię',
+
+
         }),
     )
     last_name = forms.CharField(
@@ -34,10 +36,10 @@ class ReportForm(forms.ModelForm):
             'placeholder': 'Opis'
         }),
     )
-    photo=forms.ImageField(
-        required=False,  # Pole opcjonalne
+    photo = forms.ImageField(
+        required=False,
         widget=forms.ClearableFileInput(attrs={
-            'class': 'input1 lang pl'
+            'class': 'btn-image input1 lang pl',
         }),
     )
 

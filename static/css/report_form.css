@@ -278,7 +278,7 @@ iframe {
 }
 
 .container-contact1 {
-  width: 1163px;
+  width: 100%;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
@@ -319,59 +319,70 @@ iframe {
   margin-bottom: 15px;
 }
 
-.contact1 .btn-image{
-  min-width: 193px;
-  height: 50px;
-  border-radius: 25px;
-  background: var(--color-main);
-  font-size: 15px;
-  line-height: 1.5;
-  color: var(--color-white);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 25px;
-  overflow: hidden;
+.contact1 .btn-image {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    min-width: 193px;
+    height: 50px;
+    border-radius: 25px;
+    background: var(--color-main);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--color-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 25px;
+    overflow: hidden;
+    text-align: center;
 }
 
-.contact1 .btn-text{
-  opacity: 1;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+.contact1 .btn-text {
+    opacity: 1;
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.contact1 .btn-icon{
-  display: flex;
-  position: absolute;
-  overflow: hidden;
+.contact1 .btn-icon {
+    display: flex;
+    position: absolute;
+    overflow: hidden;
 }
 
-.contact1 .btn-icon i{
-  position: relative;
-  opacity: 0;
-  font-size: 22px;
-  transform: translate(0, -40px);
-  transition: opacity 0.5s ease, transform 0.6s ease;
+.contact1 .btn-icon i {
+    position: relative;
+    opacity: 0;
+    font-size: 22px;
+    transform: translate(0, -40px);
+    transition: opacity 0.5s ease, transform 0.6s ease;
 }
 
-.contact1 .btn-image:hover{
-  background-color: var(--color-main);
-  color: var(--color-white);
-
+.contact1 .btn-image:hover {
+    background-color: var(--color-main);
+    color: var(--color-white);
 }
 
-.contact1 .btn-image:hover .bx-upload{
-  opacity: 1;
-  transform: translate(0, 0);
+.contact1 .btn-image:hover .bx-upload {
+    opacity: 1;
+    transform: translate(0, 0);
 }
 
-.contact1 .btn-image:hover .btn-text{
-  opacity: 0;
-  transform: translate(0, 40px);
+.contact1 .btn-image:hover .btn-text {
+    opacity: 0;
+    transform: translate(0, 40px);
 }
+
+
+.contact1 input[type="file"] {
+    display: none;
+}
+
+
 
 .contact1-form {
-  width: 390px;
+  width: 1163px;
 }
+
 
 .contact1-form-title {
   display: block;
