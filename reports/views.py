@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 
+import reports
 from account.models import CustomUser
 from reports.forms import ReportForm
 from reports.models import Report
@@ -21,8 +22,6 @@ def send_report(request):
 
 # @login_required
 def report_detail(request, report_id):
-    # report = get_object_or_404(Report, id=report_id)
-    # return render(request, 'reports/report_detail.html', {'report': report})
     report = get_object_or_404(Report, id=report_id)
     medics = CustomUser.objects.filter(role='medic')
     user_role = getattr(request.user, 'role', None)
@@ -43,3 +42,7 @@ def report_detail(request, report_id):
             return HttpResponse("Niepoprawne dane medyka.", status=400)
 
     return render(request, 'reports/report_detail.html', {'report': report, 'medics': medics, 'back_url': back_url})
+
+# def all_reports(request):
+#     reports = Report.objects.all()
+#     return render(request, 'reports/reports.html', {'reports': reports})
