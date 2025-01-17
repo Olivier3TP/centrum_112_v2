@@ -51,43 +51,73 @@
                 </form>
             </div>
             <div class="content">
-                <div class="main-content">
-                    <div class="container page1" id="page1">
-                        {% for report in reports %}
-                            <div class="row">
-                                <div class="col">
-                                    {% if report.photo %}
-                                        <img src="{{ report.photo.url }}" alt="report_photo">
-                                    {% endif %}
-                                </div>
-                                <div class="col">
-                                    <h2>Zgłoszenie nr: {{ report.id }}</h2>
-                                    <h4>Dane:</h4>
-                                    <div class="data">
-                                        <div class="name">
-                                            <p class="data-info">Imie Nazwisko:</p>
-                                            <p>{{ report.first_name }} {{ report.last_name }}</p>
-                                        </div>
-                                        <br>
-                                        <div class="adress">
-                                            <p class="data-info">Adres:</p>
-                                            <p>{{ report.address}}</p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <h4>Opis:</h4>
-                                    <p>{{ report.description }}</p>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <div id="container" class="fx fx-gap">
-                        <div class="btn active" data-target="page1"></div>
-                        <div class="btn" data-target="page2"></div>
-                        <div class="btn" data-target="page3"></div>
-                        <div class="btn" data-target="page4"></div>
-                    </div>
-                </div>
+<div class="main-content">
+<!-- Strona 1 -->
+<div class="container page1 active-page">
+       {% for report in reports|slice:":3" %}
+<div class="row">
+<div class="col">
+               {% if report.photo %}
+<img src="{{ report.photo.url }}" alt="report_photo">
+               {% endif %}
+</div>
+<div class="col">
+<h2>Zgłoszenie nr: {{ report.id }}</h2>
+<h4>Dane:</h4>
+<div class="data name">
+<p class="data-info">Imię i Nazwisko:</p>
+<p>{{ report.first_name }} {{ report.last_name }}</p>
+</div>
+<br>
+<div class="data address">
+<p class="data-info">Adres:</p>
+<p>{{ report.address }}</p>
+</div>
+<hr>
+<h4>Opis:</h4>
+<p>{{ report.description }}</p>
+</div>
+</div>
+       {% endfor %}
+</div>
+<!-- Strona 2 -->
+<div class="container page2" style="display: none;">
+       {% for report in reports|slice:"3:6" %}
+<div class="row">
+<div class="col">
+               {% if report.photo %}
+<img src="{{ report.photo.url }}" alt="report_photo">
+               {% endif %}
+</div>
+<div class="col">
+<h2>Zgłoszenie nr: {{ report.id }}</h2>
+<h4>Dane:</h4>
+<div class="data name">
+<p class="data-info">Imię i Nazwisko:</p>
+<p>{{ report.first_name }} {{ report.last_name }}</p>
+</div>
+<br>
+<div class="data address">
+<p class="data-info">Adres:</p>
+<p>{{ report.address }}</p>
+</div>
+<hr>
+<h4>Opis:</h4>
+<p>{{ report.description }}</p>
+</div>
+</div>
+       {% endfor %}
+</div>
+<!-- Dodaj kolejne strony w podobny sposób -->
+<!-- Paginacja -->
+<div class="fx fx-gap">
+<button class="btn active"  data-target="page1"></button>
+<button class="btn" data-target="page2"></button>
+    <button class="btn" data-target="page3"></button>
+    <button class="btn" data-target="page4"></button>
+<!-- Dodaj kolejne przyciski dla stron -->
+</div>
+</div>
                 <div class="main-side">
                     <div class="about-info">
                         <img src="https://112.be/themes/custom/be112/logo.svg" alt="Tiside">
@@ -136,7 +166,30 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 
-
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+   const buttons = document.querySelectorAll('.btn');
+   const pages = document.querySelectorAll('.container');
+   buttons.forEach(button => {
+       button.addEventListener('click', () => {
+           const target = button.getAttribute('data-target');
+           // Ukryj wszystkie strony
+           pages.forEach(page => {
+               page.style.display = 'none';
+           });
+           // Pokaż wybraną stronę
+           const activePage = document.querySelector(`.${target}`);
+           if (activePage) {
+               activePage.style.display = 'block';
+           }
+           // Usuń klasę 'active' ze wszystkich przycisków
+           buttons.forEach(btn => btn.classList.remove('active'));
+           // Dodaj klasę 'active' do klikniętego przycisku
+           button.classList.add('active');
+       });
+   });
+});
+    </script>
 </body>
 </html>
 {% endblock %}

@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 
@@ -45,9 +46,12 @@ def report_detail(request, report_id):
 
 def all_reports(request):
     reports = Report.objects.all()
+    paginator = Paginator(reports, 2)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
     user_role = getattr(request.user, 'role', None)
     if user_role == 'dispatcher':
         back_url = 'dispatcher_dashboard'
     elif user_role == 'medic':
         back_url = 'medic_dashboard'
-    return render(request, 'reports/reports.html', {'reports': reports, 'user': request.user, 'back_url': back_url})
+    return render(request, 'reports/reports.html', {'reports': reports, 'user': request.user, 'back_url': back_url, 'page_obj': page_obj})

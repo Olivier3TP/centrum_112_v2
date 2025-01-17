@@ -358,12 +358,17 @@ body {
 
 .fx {
     display: flex;
+    justify-content: center;
   }
 
 .fx-gap {
     gap: 18px;
+    display: flex;
+    justify-content: center;
 }
-
+.main-content{
+    text-align: center;
+}
 #container {
     display: flex;
     justify-content: center;
