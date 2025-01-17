@@ -28,7 +28,7 @@
                         </label>
                     </div>
                     <div class="user-info">
-                        <p class="username">Witaj,<span>{{ dispatchers.first_name}} {{ dispatchers.last_name }}</span> <br>
+                        <p class="username">Witaj,<span>{{ dispatchers.first_name}} {{ dispatchers.last_name }}</span></p>
                     </div>
                     <div class="user-pfp" onclick="DisplayUserUi()">
                         <i class='bx bxs-cog'></i>
@@ -39,10 +39,11 @@
                 <div class="main-container">
                 <div class="side">
                     <ul>
-                        <li><i class='bx bxs-dashboard'></i><span>Dashboard</span></li>
+                        <a href="{% url 'dispatcher_dashboard' %}"><li><i class='bx bxs-dashboard'></i><span>Dashboard</span></li></a>
                         <li><i class='bx bx-user'></i><span>Users</span></li>
                         <li><i class='bx bx-history'></i><span>History</span></li>
                         <li><i class='bx bxs-analyse'></i><span>Analytics</span></li>
+                        <a href="{% url 'all_reports' %}"><li><i class='bx bxs-report'></i><span>Zgłoszenia</span></li></a>
                     </ul>
                     <form method="post" action="{% url 'user_logout'%}">
                         {% csrf_token %}

@@ -30,8 +30,7 @@
                     </label>
                 </div>
                 <div class="user-info">
-                    <p class="username">Hey,<span>{{ medic.first_name }} {{ medic.last_name }}</span> <br>
-                        Medyk</p>
+                    <p class="username">Hey,<span>{{ medic.first_name }} {{ medic.last_name }}</span></p>
                 </div>
                 <div class="user-pfp" onclick="DisplayUserUi()">
                     <i class='bx bxs-cog'></i>
@@ -42,9 +41,9 @@
             <div class="main-container">
             <div class="side">
                 <ul>
-                    <li><i class='bx bxs-dashboard'></i><span>Dashboard</span></li>
+                    <a href="{% url 'medic_dashboard' %}"><li><i class='bx bxs-dashboard'></i><span>Dashboard</span></li></a>
                     <li><i class='bx bx-envelope'></i><span>Powiadomienia</span></li>
-                    <a href="reports.html"><li><i class='bx bxs-report'></i><span>Zgłoszenia</span></li></a>
+                    <a href="{% url 'all_reports' %}"><li><i class='bx bxs-report'></i><span>Zgłoszenia</span></li></a>
                 </ul>
                  <form method="post" action="{% url 'user_logout'%}">
                      {% csrf_token %}

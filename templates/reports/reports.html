@@ -30,7 +30,7 @@
                     </label>
                 </div>
                 <div class="user-info">
-                    <p class="username">Hey,<span>Użytkownik</span></p>
+                    <p class="username">Hey,<span>{{ user.first_name }} {{ user.last_name }}</span></p>
                 </div>
                 <div class="user-pfp" onclick="DisplayUserUi()">
                     <i class='bx bxs-cog'></i>
@@ -41,146 +41,45 @@
             <div class="main-container">
             <div class="side">
                 <ul>
-                    <li><i class='bx bxs-dashboard'></i><span>Dashboard</span></li>
+                    <a href="{% url back_url %} "><li><i class='bx bxs-dashboard'></i><span>Dashboard</span></li></a>
                     <li><i class='bx bx-envelope'></i><span>Powiadomienia</span></li>
-                    <li><i class='bx bxs-report'></i><span>Zgłoszenia</span></li>
+                    <a href="{% url 'all_reports' %} "><li><i class='bx bxs-report'></i><span>Zgłoszenia</span></li></a>
                 </ul>
-                <button><i class='bx bx-log-in'></i><span>Wyloguj</span></button>
+                <form method="post" action="{% url 'user_logout'%}">
+                    {% csrf_token %}
+                    <button><i class='bx bx-log-in'></i><span>Log out</span></button>
+                </form>
             </div>
             <div class="content">
                 <div class="main-content">
                     <div class="container page1" id="page1">
-                        <div class="row">
-                            <div class="col">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/1280px-Placeholder_view_vector.svg.png" alt="">
-                            </div>
-                            <div class="col">
-                                {% for report in reports %}
-                                <h2>Zgłoszenie nr: {{ report.id }}</h2>
-                                <h4>Dane:</h4>
-                                <div class="data">
-                                    <div class="name">
-                                        <p class="data-info">Imie Nazwisko:</p>
-                                        <p>{{ report.first_name }} {{ report.last_name }}</p>
-                                    </div>
-                                    <br>
-                                    <div class="adress">
-                                        <p class="data-info">Adres:</p>
-                                        <p>{{ report.address }}</p>
-                                    </div>
+                        {% for report in reports %}
+                            <div class="row">
+                                <div class="col">
+                                    {% if report.photo %}
+                                        <img src="{{ report.photo.url }}" alt="report_photo">
+                                    {% endif %}
                                 </div>
-                                <hr>
-                                <h4>Opis:</h4>
-                                <p></p>
-
-                                <p class="date-info">Wysłano: 15.01.2025 o godzinie 2:15</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container page2 hidden" id="page3">
-                        <div class="row">
-                            <div class="col">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/1280px-Placeholder_view_vector.svg.png" alt="">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/1280px-Placeholder_view_vector.svg.png" alt="">
-                            </div>
-                            <div class="col">
-                                <h2>Zgłoszenie nr: 6</h2>
-                                <h4>Dane:</h4>
-                                <div class="data">
-                                    <div class="name">
-                                        <p class="data-info">Imie Nazwisko:</p>
-                                        <p>Stanisław Bazhan</p>
+                                <div class="col">
+                                    <h2>Zgłoszenie nr: {{ report.id }}</h2>
+                                    <h4>Dane:</h4>
+                                    <div class="data">
+                                        <div class="name">
+                                            <p class="data-info">Imie Nazwisko:</p>
+                                            <p>{{ report.first_name }} {{ report.last_name }}</p>
+                                        </div>
+                                        <br>
+                                        <div class="adress">
+                                            <p class="data-info">Adres:</p>
+                                            <p>{{ report.address}}</p>
+                                        </div>
                                     </div>
-                                    <br>
-                                    <div class="adress">
-                                        <p class="data-info">Adres:</p>
-                                        <p>Fabryczna 14, 90-789, Wrocław</p>
-                                    </div>
+                                    <hr>
+                                    <h4>Opis:</h4>
+                                    <p>{{ report.description }}</p>
                                 </div>
-                                <hr>
-                                <h4>Opis:</h4>
-                                <p>
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore cupiditate atque delectus eum aut numquam tempore eligendi
-                                    assumenda temporibus perspiciatis, libero molestias
-                                    voluptatem odio corporis reprehenderit fugit impedit deleniti consectetur.
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore cupiditate atque delectus eum aut numquam tempore eligendi
-                                    assumenda temporibus perspiciatis, libero molestias
-                                    voluptatem odio corporis reprehenderit fugit impedit deleniti consectetur.
-                                </p>
-
-                                <p class="date-info">Wysłano: 15.01.2025 o godzinie 2:15</p>
                             </div>
-                        </div>
-                    </div>
-                    <div class="container page2 hidden" id="page4">
-                        <div class="row">
-                            <div class="col">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/1280px-Placeholder_view_vector.svg.png" alt="">
-                            </div>
-                            <div class="col">
-                                <h2>Zgłoszenie nr: 7</h2>
-                                <h4>Dane:</h4>
-                                <div class="data">
-                                    <div class="name">
-                                        <p class="data-info">Imie Nazwisko:</p>
-                                        <p>Stanisław Bazhan</p>
-                                    </div>
-                                    <br>
-                                    <div class="adress">
-                                        <p class="data-info">Adres:</p>
-                                        <p>Fabryczna 14, 90-789, Wrocław</p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <h4>Opis:</h4>
-                                <p>
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore cupiditate atque delectus eum aut numquam tempore eligendi
-                                    assumenda temporibus perspiciatis, libero molestias
-                                    voluptatem odio corporis reprehenderit fugit impedit deleniti consectetur.
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore cupiditate atque delectus eum aut numquam tempore eligendi
-                                    assumenda temporibus perspiciatis, libero molestias
-                                    voluptatem odio corporis reprehenderit fugit impedit deleniti consectetur.
-                                </p>
-
-                                <p class="date-info">Wysłano: 15.01.2025 o godzinie 2:15</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/1280px-Placeholder_view_vector.svg.png" alt="">
-                            </div>
-                            <div class="col">
-                                <h2>Zgłoszenie nr: 8</h2>
-                                <h4>Dane:</h4>
-                                <div class="data">
-                                    <div class="name">
-                                        <p class="data-info">Imie Nazwisko:</p>
-                                        <p>Stanisław Bazhan</p>
-                                    </div>
-                                    <br>
-                                    <div class="adress">
-                                        <p class="data-info">Adres:</p>
-                                        <p>Fabryczna 14, 90-789, Wrocław</p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <h4>Opis:</h4>
-                                <p>
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore cupiditate atque delectus eum aut numquam tempore eligendi
-                                    assumenda temporibus perspiciatis, libero molestias
-                                    voluptatem odio corporis reprehenderit fugit impedit deleniti consectetur.
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore cupiditate atque delectus eum aut numquam tempore eligendi
-                                    assumenda temporibus perspiciatis, libero molestias
-                                    voluptatem odio corporis reprehenderit fugit impedit deleniti consectetur.
-                                </p>
-
-                                <p class="date-info">Wysłano: 15.01.2025 o godzinie 2:15</p>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                     <div id="container" class="fx fx-gap">
                         <div class="btn active" data-target="page1"></div>
@@ -228,11 +127,16 @@
             </div>
         </div>
     </div>
-{% endblock %}
+
+
+
 <script src="{% static 'js/panel.js' %}"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
+
+
 </body>
 </html>
+{% endblock %}

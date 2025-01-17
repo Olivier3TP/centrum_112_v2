@@ -41,8 +41,13 @@ def report_detail(request, report_id):
         except CustomUser.DoesNotExist:
             return HttpResponse("Niepoprawne dane medyka.", status=400)
 
-    return render(request, 'reports/report_detail.html', {'report': report, 'medics': medics, 'back_url': back_url})
+    return render(request, 'reports/report_detail.html', {'report': report, 'medics': medics, 'back_url': back_url, 'user': request.user})
 
-# def all_reports(request):
-#     reports = Report.objects.all()
-#     return render(request, 'reports/reports.html', {'reports': reports})
+def all_reports(request):
+    reports = Report.objects.all()
+    user_role = getattr(request.user, 'role', None)
+    if user_role == 'dispatcher':
+        back_url = 'dispatcher_dashboard'
+    elif user_role == 'medic':
+        back_url = 'medic_dashboard'
+    return render(request, 'reports/reports.html', {'reports': reports, 'user': request.user, 'back_url': back_url})
